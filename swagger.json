@@ -1,0 +1,70 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/platform/user/username": {
+            "get": {
+                "summary": "Returns repositories of the given user",
+                "description": "Returns repositories of the given user",
+                "operationId": "App\\Router\\Router::handle",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Not good"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Response": {
+                "description": "Number of results in the query",
+                "properties": {
+                    "reults": {
+                        "description": "Number of results",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "type": {
+                        "description": "Type of integration/platform",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "repos": {
+                        "$ref": "#/components/schemas/Repo"
+                    }
+                },
+                "type": "object"
+            },
+            "Repo": {
+                "properties": {
+                    "name": {
+                        "description": "Name",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "description": {
+                        "description": "A short description",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "url": {
+                        "description": "Repo url",
+                        "type": "string",
+                        "readOnly": "true"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
