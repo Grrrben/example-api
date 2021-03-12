@@ -29,7 +29,7 @@ class GithubRetriever implements RetrieverInterface
         $uri = $this->uriBuilder();
         $response = $client->get($uri, $headers);
 
-        if (substr($response->getStatusCode(), 0, 1) !== '2') {
+        if (substr((string)$response->getStatusCode(), 0, 1) !== '2') {
             throw new \Exception($response->getBody(), $response->getStatusCode());
         }
 
