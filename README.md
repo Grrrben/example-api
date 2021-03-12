@@ -1,6 +1,14 @@
-# OA
+# API
 
 ## setup
+
+You need `docker` and `docker compose`.  
+And `git` of course.
+
+```
+git clone https://github.com/Grrrben/example-api
+cd example-api
+```
 
 ### docker && compose
 
