@@ -2,18 +2,23 @@
 
 namespace App\Router;
 
-use App\Request\RequestHandler;
 use App\Reader\ReaderFactory;
+use App\Request\RequestParameters;
 use App\Response\Response;
 use OpenApi\Annotations as OA;
 
 class Router
 {
+    private ReaderFactory $reader;
+
     /** @var string[] */
     private array $routes;
 
-    public function __construct()
+    public function __construct(ReaderFactory $reader)
     {
+        // this really is just here so I can create a proper unittest
+        $this->reader = $reader;
+
         $this->routes = [
             '/github/' => 'github',
         ];
@@ -33,8 +38,12 @@ class Router
      *         description="Success",
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/Response")
+     *             @OA\Schema(ref="#/components/schemas/Result")
      *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Not found"
      *     ),
      *     @OA\Response(
      *         response=500,
@@ -49,16 +58,22 @@ class Router
             return file_get_contents("./../swagger.json");
         }
 
-        $reader = new ReaderFactory();
-
-        foreach ($this->routes as $re => $route) {
-            if (preg_match($re, $path)) {
-                $params = $reqHandler = new RequestHandler($path);
-                $output = $reader->handle($route, $params);
-                return Response::json($output);
+        try {
+            foreach ($this->routes as $re => $route) {
+                if (preg_match($re, $path)) {
+                    $requestParams = new RequestParameters($path);
+                    $output = $this->reader->handle($route, $requestParams);
+                    return Response::json($output);
+                }
             }
-        }
+            throw new \Exception("no strategy found for {$path}");
+        } catch (\Exception $e) {
+            // log and ...
+            $res = new \stdClass();
+            $res->code = $e->getCode();
+            $res->message = $e->getMessage();
 
-        throw new \RuntimeException("no strategy found for {$path}");
+            return Response::json($res);
+        }
     }
 }

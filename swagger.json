@@ -1,5 +1,9 @@
 {
     "openapi": "3.0.0",
+    "info": {
+        "title": "Example API",
+        "version": "1.0.0"
+    },
     "paths": {
         "/platform/user/username": {
             "get": {
@@ -12,10 +16,13 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Response"
+                                    "$ref": "#/components/schemas/Result"
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "description": "Not found"
                     },
                     "500": {
                         "description": "Not good"
@@ -26,16 +33,20 @@
     },
     "components": {
         "schemas": {
-            "Response": {
-                "description": "Number of results in the query",
+            "Hit": {
                 "properties": {
-                    "reults": {
-                        "description": "Number of results",
-                        "type": "integer",
+                    "name": {
+                        "description": "Name",
+                        "type": "string",
                         "readOnly": "true"
                     },
-                    "type": {
-                        "description": "Type of integration/platform",
+                    "path": {
+                        "description": "Path to the file",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "url": {
+                        "description": "Url to file",
                         "type": "string",
                         "readOnly": "true"
                     },
@@ -61,6 +72,27 @@
                         "description": "Repo url",
                         "type": "string",
                         "readOnly": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "Result": {
+                "properties": {
+                    "count": {
+                        "description": "Number of results",
+                        "type": "integer",
+                        "readOnly": "true"
+                    },
+                    "target": {
+                        "description": "Type of integration/platform",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "repos": {
+                        "$ref": "#/components/schemas/Repo"
+                    },
+                    "hits": {
+                        "$ref": "#/components/schemas/Hit"
                     }
                 },
                 "type": "object"

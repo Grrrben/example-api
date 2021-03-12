@@ -2,6 +2,15 @@
 
 namespace App\Popo;
 
+/**
+ * @OA\Schema(
+ *   schema="Hit",
+ *   @OA\Property(property="name", type="string", readOnly="true", description="Name"),
+ *   @OA\Property(property="path", type="string", readOnly="true", description="Path to the file"),
+ *   @OA\Property(property="url", type="string", readOnly="true", description="Url to file"),
+ *   @OA\Property(property="repos", description="repository", ref="#/components/schemas/Repo"),
+ * )
+ */
 class Hit
 {
     public string $url;

@@ -3,13 +3,13 @@
 
 namespace App\Reader;
 
-use App\Request\RequestHandler;
-use App\Popo\Platform;
+use App\Popo\Result;
+use App\Request\RequestParameters;
 
 interface ReaderInterface
 {
     public function supports(string $type): bool;
 
     // todo should do something about the return type
-    public function handle(RequestHandler $params): Platform;
+    public function handle(RequestParameters $params): Result;
 }

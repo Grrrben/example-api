@@ -2,11 +2,11 @@
 
 namespace App\Tests\Request;
 
-use App\Request\RequestHandler;
+use App\Request\RequestParameters;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \App\Request\RequestHandler
+ * @covers \App\Request\RequestParameters
  */
 final class RequestHandlerTest extends TestCase
 {
@@ -15,7 +15,7 @@ final class RequestHandlerTest extends TestCase
      */
     public function testIsCodeSearch(string $path, bool $isCode): void
     {
-        $handler = new RequestHandler($path);
+        $handler = new RequestParameters($path);
         $this->assertSame($isCode, $handler->isCodeSearch());
     }
 
@@ -24,7 +24,7 @@ final class RequestHandlerTest extends TestCase
      */
     public function testGetQuerySetByKey(string $path, string $key, string $value): void
     {
-        $handler = new RequestHandler($path);
+        $handler = new RequestParameters($path);
 
         $set = $handler->getQuerySetByKey($key);
 

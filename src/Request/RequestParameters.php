@@ -6,7 +6,7 @@ namespace App\Request;
  * Looks at the request URL and creates sets of query params
  * that can be used to query the platform
  */
-class RequestHandler
+class RequestParameters
 {
     public const SEARCH_TYPE_USER = 'user';
     public const SEARCH_TYPE_CODE = 'code';

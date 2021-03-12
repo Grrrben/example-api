@@ -4,19 +4,23 @@
 
 ### docker && compose
 
-This is a dockerised app. Just run docker-compose up:
+This is a dockerised app. 
+Linked together with `compose`, so just run docker-compose up:
 
 ```
 docker-compose up
+
+# after changes in the dockerfile, use
+docker-compose up --build
 ```
 
-### Access
+### access
 
 The API is listening on port 8080. http://localhost:8080/
 
 ### endpoints
 
-You can search for users only, retrieving a list of repos:
+You can search for users, retrieving a list of repos:
 - `http://localhost:8080/github/user/grrrben/`
 
 Or search the code of a user, you will retrieve a list of hits
@@ -43,9 +47,8 @@ Run it with make from project root:
 make phpunit 
 ```
 
-
 ## technical debt
 
-- Swagger API docs should be created locally as the compose volume is not mounted yet when runnen the php Dockerfile
-- phpunit8, ^9 is not yet compatible with the used PHP-FPM image
-- there is (almost) no error handling, logging, monitoring. 
+- Swagger API docs should be created locally as the compose volume is not mounted yet when running the php Dockerfile
+- not a MVC setup.
+- there is (almost) no error handling, logging, monitoring. `var_dump` is your friend.

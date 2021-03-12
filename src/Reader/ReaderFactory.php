@@ -2,8 +2,8 @@
 
 namespace App\Reader;
 
-use App\Popo\Platform;
-use App\Request\RequestHandler;
+use App\Popo\Result;
+use App\Request\RequestParameters;
 
 class ReaderFactory
 {
@@ -21,7 +21,7 @@ class ReaderFactory
         ];
     }
 
-    public function handle(string $type, RequestHandler $params): Platform
+    public function handle(string $type, RequestParameters $params): Result
     {
         foreach ($this->strategies as $strategy) {
             if ($strategy->supports($type)) {
