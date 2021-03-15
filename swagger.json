@@ -5,11 +5,45 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/platform/user/username": {
+        "/{platform}/user/{username}": {
             "get": {
-                "summary": "Returns repositories of the given user",
+                "summary": "Get repositories",
                 "description": "Returns repositories of the given user",
                 "operationId": "App\\Router\\Router::handle",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "Git platform (github|gitlab|bitbucket)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": [
+                            {
+                                "example": "string",
+                                "summary": "Github is a working integration.",
+                                "value": "github"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Github username",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": [
+                            {
+                                "example": "string",
+                                "summary": "a valid Github username.",
+                                "value": "grrrben"
+                            }
+                        ]
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",

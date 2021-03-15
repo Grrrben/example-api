@@ -30,9 +30,26 @@ class Router
      *         title="Example API",
      * )
      * @OA\Get(
-     *     path="/platform/user/username",
-     *     summary="Returns repositories of the given user",
+     *     path="/{platform}/user/{username}",
+     *     summary="Get repositories",
      *     description="Returns repositories of the given user",
+     *     @OA\Parameter(
+     *         description="Git platform (github|gitlab|bitbucket)",
+     *         in="path",
+     *         name="platform",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *         @OA\Examples(example="string", value="github", summary="Github is a working integration."),
+     *     ),
+     *     @OA\Parameter(
+     *         in="path",
+     *         description="Github username",
+     *         in="path",
+     *         name="username",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *         @OA\Examples(example="string", value="grrrben", summary="a valid Github username."),
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success",
